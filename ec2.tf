@@ -1,11 +1,20 @@
 resource "aws_vpc" "emir_vpc" {
   cidr_block = "10.0.0.0/16"
+
+tags = {
+    Name = "emir-project-cicd"
+  }
 }
+
  
 resource "aws_subnet" "emir_subnet" {
   vpc_id            = aws_vpc.emir_vpc.id
   cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-1a"
+
+tags = {
+    Name = "emir-project-cicd"
+  }
 }
  
 resource "aws_route_table" "public_route_table" {
@@ -14,6 +23,10 @@ resource "aws_route_table" "public_route_table" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.emir_ig.id
+  }
+
+tags = {
+    Name = "emir-projec-cicd"
   }
 }
  
@@ -24,6 +37,10 @@ resource "aws_route_table_association" "public_subnet_association" {
  
 resource "aws_internet_gateway" "emir_ig" {
   vpc_id = aws_vpc.emir_vpc.id
+
+tags = {
+    Name = "emir-project-cicd"
+  }
 }
  
 resource "aws_security_group" "emir_security_group" {
